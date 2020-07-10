@@ -1,0 +1,66 @@
+html, 
+body, 
+.xr-canvas {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.xr-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -2;
+}
+body {
+    z-index: 1;
+}
+
+
+#description {
+    pointer-events: auto;
+    font-family: sans-serif;
+    padding: 1em;
+    background-color:rgba(255,255,255,0.7);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    position:absolute;
+    bottom: 0px;
+    left:0px;
+    right: 0px;
+}
+#description > * {
+    pointer-events: none;
+}
+
+
+button {
+    font-size: 16px;
+}
+
+#go-button { margin: 20px; }
+
+.text-box {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    color: white;
+    background: rgba(27,55,55,0.75);;
+    outline: 1px solid rgba(127,255,255,0.75);
+    border: 0px;
+    padding: 5px 10px;
+    margin: 0px 0 0 -50px;
+    font-size: 0.8em;
+}
+
+.common-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+}
