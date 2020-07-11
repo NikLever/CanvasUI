@@ -2,6 +2,7 @@
 A Three.JS WebXR UI. Enabling easy UI creation for immersive-vr sessions.
 
 ## Get Started
+![Image](./examples/assets/canvasui-simple.png)
 To show a text panel use 
 
 Make sure to import **CanvasUI**
