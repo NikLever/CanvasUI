@@ -3,6 +3,7 @@ A Three.JS WebXR UI. Enabling easy UI creation for immersive-vr sessions.
 
 ## Get Started
 ![Image](./examples/assets/canvasui-simple.png)
+
 To show a text panel use 
 
 Make sure to import **CanvasUI**
@@ -26,6 +27,8 @@ A CanvasUI mesh is simply a Plane that is 1 x 1 units. In a VR world this means 
 An online version is available [here](https://niksgames.com/webxr/dev/CanvasUI/simple/)
 
 ## Header|Main|Footer example
+![Image](./examples/assets/canvasui-panel.png)
+
 In general CanvasUI is designed to have a content object and a config object. Let's try an example with multiple elements. 
 ```
 const config = {
@@ -78,6 +81,8 @@ defaultconfig = {
 An online version is available [here](https://niksgames.com/webxr/dev/CanvasUI/panel/)
 
 ## Buttons
+![Image](./examples/assets/canvasui-buttons.png)
+
 So far we've only added text elements to the UI. In this example we'll add **buttons**. Buttons work by detecting the movement and trigger button on your VR controllers. To ensure that they work correctly, add this to the renderers animation loop. 
 
 ```
@@ -174,6 +179,8 @@ When buttons are used always pass the **renderer** in the config object. This en
 An online version is available [here](https://niksgames.com/webxr/dev/CanvasUI/buttons/)
 
 ## Scrolling
+![Image](./examples/assets/canvasui-scrolling.png)
+
 If a section of text cannot fit in the space available then you can allow it to scroll. Because this needs to use VR controllers, you need to follow the same rules as for buttons.
 
 1. Add `renderer` to the config object passed to the CanvasUI constructor.
@@ -198,6 +205,8 @@ ui = new CanvasUI( content, config );
 An online version is available [here](https://niksgames.com/webxr/dev/CanvasUI/scrolling/)
 
 ## Images
+![Image](./examples/assets/canvasui-images.png)
+
 You can display an image on the UI panel using CanvasUI. It is easily added using a img type.
 
 ```
@@ -218,6 +227,8 @@ Notice that the config defines the positioning and size. Here only the width is 
 An online version is available [here](https://niksgames.com/webxr/dev/CanvasUI/images/)
 
 ## Custom Shaped Panels
+![Image](./examples/assets/canvasui-shaped.png)
+
 
 The default shape for a UI panel is a square or rounded rectangle. But you can define a shape using an svg path. 
 
@@ -239,6 +250,7 @@ Notice that this example uses a custom Google Font. Loaded in the index.html pag
 An online version is available [here](https://niksgames.com/webxr/dev/CanvasUI/shaped/)
 
 ## Input text
+![Image](./examples/assets/canvasui-keyboard.png)
 
 CanvasUI supports a dynamic keyboard. Specify a config type as `input-text` and on select a keyboard will be shown. In common with any button type it has the usual requirements.
 
