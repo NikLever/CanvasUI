@@ -179,14 +179,16 @@ class CanvasKeyboard{
         if ( !this.visible ) return
         
         //console.log( `CanvasKeyboard onSelect: key index ${index}`);
+        let change = false;
         
         switch(index){
             case 34://Enter
                 this.visible = false;
+                if ( this.linkedElement.onEnter ) this.linkedElement.onEnter( this.linkedText );
                 break;
             case 32://space
                 this.linkedText += ' ';
-                this.linkedUI.updateElement( this.linkedName, this.linkedText );
+                change = true;
                 break;
             case 30://switch keyboard
                 this.shift = false;
@@ -199,7 +201,7 @@ class CanvasKeyboard{
                 break;
             case 28://backspace
                 this.linkedText = this.linkedText.substring( 0, this.linkedText.length-1 );
-                this.linkedUI.updateElement( this.linkedName, this.linkedText );
+                change = true;
                 break;
             case 20://shift
                 this.shift = !this.shift;
@@ -216,9 +218,14 @@ class CanvasKeyboard{
             default:
                 const txt = this.keyboard.content[`btn${index}`];
                 this.linkedText += txt;
-                this.linkedUI.updateElement( this.linkedName, this.linkedText );
+                change = true;
                 if (this.keyboardIndex==1) this.setKeyboard( 0 );
                 break;
+        }
+        
+        if ( change ){
+            this.linkedUI.updateElement( this.linkedName, this.linkedText );
+            if ( this.linkedElement.onChanged) this.linkedElement.onChanged( this.linkedText );
         }
     }
     

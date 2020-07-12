@@ -47,11 +47,19 @@ class App{
     }
     
     createUI() {
+        function onChanged( txt ){
+            console.log( `message changed: ${txt}`);
+        }
+        
+        function onEnter( txt ){
+            console.log(`message enter: ${txt}`);
+        }
+        
         const config = {
             renderer: this.renderer,
             panelSize: { width: 1.6, height: 0.4 },
             height: 128,
-            message: { type: "input-text", position: { left: 10, top: 8 }, height: 56, width: 492, backgroundColor: "#ccc", fontColor: "#000" },
+            message: { type: "input-text", position: { left: 10, top: 8 }, height: 56, width: 492, backgroundColor: "#ccc", fontColor: "#000", onChanged, onEnter },
             label: { type: "text", position: { top: 64 }}
         }
         const content = {

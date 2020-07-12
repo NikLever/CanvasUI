@@ -161,6 +161,7 @@ class CanvasUI{
                         if ( self.keyboard.visible ){
                             self.keyboard.linkedUI = undefined;
                             self.keyboard.linkedText = undefined;
+                            self.keyboard.linkedElement = undefined;
                             self.keyboard.visible = false;
                         }else{
                             self.keyboard.linkedUI = self;
@@ -173,6 +174,7 @@ class CanvasUI{
                             self.keyboard.position.set( 0, -h/1.5 - y, 0.1 );
                             self.keyboard.linkedText = self.content[ name ];
                             self.keyboard.linkedName = name;
+                            self.keyboard.linkedElement = elm;
                             self.keyboard.visible = true;
                         }
                     }
