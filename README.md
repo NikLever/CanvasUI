@@ -285,6 +285,12 @@ ui = new CanvasUI( content, config );
 
 An online version is available [here](https://niksgames.com/webxr/dev/CanvasUI/keyboard/)
 
+## Links
+- [My courses](http://niklever.com/courses)
+- ![icon](www/assets/facebook.png)[FB Three.JS Group](https://www.facebook.com/groups/nikthreejs)
+- ![icon](www/assets/twitter.png)[Twitter](https://twitter.com/NikLever)
+- ![icon](www/assets/youtube.png)[YouTube Channel](https://www.youtube.com/channel/UCUlSAoLd9N2AEeT08wqnpyg?view_as=subscriber)
+- ![icon](www/assets/mail.png)[nik.j.lever@gmail.com](mailto:nik.j.lever@gmail.com)
 
 
 
