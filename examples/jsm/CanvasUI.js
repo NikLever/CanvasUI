@@ -641,4 +641,65 @@ class CanvasUI{
 	}
 }
 
+class ColorPicker{
+    constructor(x, y, w, h, col){
+        this.config = {x,y,width:w,height:h,col};
+        this.picker = {x,y,width:w*0.7,height:h*0.7};
+        let left = w*0.75;
+        let top = h*0.75;
+        this.strip = {x:left,y,width:w-left,height:h};
+        this.color = {x,y:top,width:this.picker.width*0.5,height:h-top,hex:col};
+        this.hex = {x:this.color.width + 5, y:top, width: w - this.color.width+5, height:h-top};
+    }
+
+    get colRGBA(){
+        let hex = this.color.hex.replace('#', '');
+    
+        if (hex.length === 3) {
+            hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+        }    
+    
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+
+        return `rgba(${r},${g},${b},1)`;
+    }
+
+    drawPicker(ctx) {
+        ctx.fillStyle = this.colRGBA;
+        ctx.fillRect(this.picker.x, this.picker.y, this.picker.width, this.picker.height);
+      
+        var grdWhite = ctx1.createLinearGradient(0, 0, width1, 0);
+        grdWhite.addColorStop(0, 'rgba(255,255,255,1)');
+        grdWhite.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = grdWhite;
+        ctx.fillRect(0, 0, width1, height1);
+      
+        var grdBlack = ctx1.createLinearGradient(0, 0, 0, height1);
+        grdBlack.addColorStop(0, 'rgba(0,0,0,0)');
+        grdBlack.addColorStop(1, 'rgba(0,0,0,1)');
+        ctx.fillStyle = grdBlack;
+        ctx.fillRect(0, 0, width1, height1);
+    }
+
+    drawStrip(ctx){
+        //ctx.rect(this.strip.x, this.strip.y, this.strip.width, this.strip.height);
+        const grd = ctx.createLinearGradient(this.strip.x, this.strip.y, this.strip.x, this.strip.y + this.strip.height1);
+        grd.addColorStop(0, 'rgba(255, 0, 0, 1)');
+        grd.addColorStop(0.17, 'rgba(255, 255, 0, 1)');
+        grd.addColorStop(0.34, 'rgba(0, 255, 0, 1)');
+        grd.addColorStop(0.51, 'rgba(0, 255, 255, 1)');
+        grd.addColorStop(0.68, 'rgba(0, 0, 255, 1)');
+        grd.addColorStop(0.85, 'rgba(255, 0, 255, 1)');
+        grd.addColorStop(1, 'rgba(255, 0, 0, 1)');
+        ctx.fillStyle = grd;
+        ctx.fill();  
+    }
+
+    update(ctx){
+        
+    }
+}
+
 export { CanvasUI };
