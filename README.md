@@ -287,6 +287,11 @@ ui = new CanvasUI( content, config );
 
 An online version is available [here](https://niksgames.com/webxr/dev/CanvasUI/keyboard/)
 
+
+## Contributing
+As a developer, you can `git clone` this repo, then `npm i`, then `npm start`.
+`npm start` will start a https webserver, so you can test examples using your browser, including Oculus Browser.
+
 ## Links
 - [My courses](http://niklever.com/courses)
 - ![icon](examples/assets/facebook.png)[FB Three.JS Group](https://www.facebook.com/groups/nikthreejs)
