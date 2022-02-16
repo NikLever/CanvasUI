@@ -6,7 +6,7 @@
     "example": "examples"
   },
   "scripts": {
-    "start": "node node_modules/evilwebserver/bin/evilwebserver.js -d examples/",
+    "start": "node node_modules/evilwebserver/bin/evilwebserver.js",
     "vercel-build": "cp build examples/ -rf"
   },
   "repository": {
