@@ -6,7 +6,8 @@
     "example": "examples"
   },
   "scripts": {
-    "start": "node node_modules/evilwebserver/bin/evilwebserver.js"
+    "start": "node node_modules/evilwebserver/bin/evilwebserver.js -d examples/",
+    "build": "cp build examples/"
   },
   "repository": {
     "type": "git",
