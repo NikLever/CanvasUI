@@ -1,0 +1,9 @@
+{
+    "trailingSlash": true,
+    "redirects": [
+        {
+            "source": "/",
+            "destination": "/examples/CanvasUI/index.html"
+        }
+    ]
+}
