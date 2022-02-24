@@ -9,8 +9,9 @@ import { Mesh,
         Vector3, 
         IcosahedronBufferGeometry,
         Color
-       } from '../../build/three.module.js';
-import { CanvasKeyboard } from './CanvasKeyboard.js';
+    } from 'https://cdn.skypack.dev/three@THREEJSVERSION';
+
+    import { CanvasKeyboard } from './CanvasKeyboard.js';
 
 /*An element is defined by 
 type: text | button | image | shape

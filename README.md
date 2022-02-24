@@ -295,4 +295,3 @@ An online version is available [here](https://niksgames.com/webxr/dev/CanvasUI/k
 - ![icon](examples/assets/mail.png)[nik.j.lever@gmail.com](mailto:nik.j.lever@gmail.com)
 
 
-

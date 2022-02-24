@@ -1,6 +1,8 @@
-import * as THREE from '../../../build/three.module.js';
-import { BoxLineGeometry } from '../../jsm/geometries/BoxLineGeometry.js';
-import { XRControllerModelFactory } from '../../jsm/webxr/XRControllerModelFactory.js';
+// see devsrv.config.json for threejs version dynamically replaced by devsrv
+import * as THREE from 'https://cdn.skypack.dev/three@THREEJSVERSION';
+import { BoxLineGeometry } from 'https://cdn.skypack.dev/three@THREEJSVERSION/examples/jsm/geometries/BoxLineGeometry.js';
+import { XRControllerModelFactory } from 'https://cdn.skypack.dev/three@THREEJSVERSION/examples/jsm/webxr/XRControllerModelFactory.js';
+
 import { CanvasUI } from '../../jsm/CanvasUI.js'
 import { VRButton } from '../../jsm/VRButton.js';
 
