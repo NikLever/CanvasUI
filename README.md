@@ -381,6 +381,29 @@ const content = {
 ui = new CanvasUI( content, config );
 ```
 
+<details>
+  <summary>Color Picker</summary>
+
+![Image](./examples/assets/canvasui-colorpicker.png)
+> [DEMO](https://niksgames.com/webxr/dev/CanvasUI/colorPicker/)
+
+You can display an image on the UI panel using CanvasUI. It is easily added using a img type.
+
+```
+const config = {
+    picker: { type: "picker", position: { left: 20, top: 20 }, width:472, height:422, onChange },
+    info: { type: "text", position: { left: 20, top: 452 }, fontSize:18, },
+    opacity: 1
+}
+        
+const content = {
+    picker: "#00ff00",
+    info: "Use the color picker to add an option to select a color"
+}
+this.ui = new CanvasUI( content, config );
+```
+
+
 </details>
 
 ## Links
