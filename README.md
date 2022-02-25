@@ -8,11 +8,6 @@
 
 </h4>
 
-
-
-
-----------------------------------------------------------------
-
 ## Use CanvasUI
 <details>
 <summary>Get Started</summary>
@@ -107,8 +102,6 @@ $ node node_modules/@eviltik/devsrv/bin/devsrv.js -d path/to/buildedfiles/
 That's it !
 
 </details>
-
-----------------------------------------------------------------
 
 ## Widgets
 <details>
@@ -389,8 +382,6 @@ ui = new CanvasUI( content, config );
 ```
 
 </details>
-
-----------------------------------------------------------------
 
 ## Links
 - [My courses](http://niklever.com/courses)
