@@ -380,6 +380,7 @@ const content = {
 }
 ui = new CanvasUI( content, config );
 ```
+</details>
 
 <details>
   <summary>Color Picker</summary>
@@ -402,8 +403,6 @@ const content = {
 }
 this.ui = new CanvasUI( content, config );
 ```
-
-
 </details>
 
 ## Links
