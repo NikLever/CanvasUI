@@ -57,24 +57,13 @@ class App{
             speech: "A custom shaped panel. How about that?"
         }
         this.ui = new CanvasUI( content, css );
+        this.ui.mesh.position.set( 0, 1.5, -1.6 );
+        this.camera.attach( this.ui.mesh );
     }
     
     setupXR(){
         this.renderer.xr.enabled = true; 
-        
-        const self = this;
-        
-        function onSessionStart(){
-            self.ui.mesh.position.set( 0, 1.5, -1.2 );
-            self.camera.attach( self.ui.mesh );
-        }
-        
-        function onSessionEnd(){
-            self.camera.remove( self.ui.mesh );
-        }
-        
-        const btn = new VRButton( this.renderer, { onSessionStart, onSessionEnd } );
-        
+        new VRButton( this.renderer );
         this.renderer.setAnimationLoop( this.render.bind(this) );
     }
     

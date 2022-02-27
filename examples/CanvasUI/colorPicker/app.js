@@ -67,7 +67,8 @@ class App{
         }
         this.ui = new CanvasUI( content, config );
 
-        const self = this;
+        this.ui.mesh.position.set( 0, 1.5, -1.6 );
+        this.scene.attach(this.ui.mesh);
 
         function onChange(hex){
             const msg = `Picker color changed to (${hex})`;
@@ -79,18 +80,7 @@ class App{
     setupXR(){
         this.renderer.xr.enabled = true; 
         
-        const self = this;
-        
-        function onSessionStart(){
-            self.ui.mesh.position.set( 0, 1.5, -1.2 );
-            self.scene.attach(self.ui.mesh);
-        }
-        
-        function onSessionEnd(){
-            self.scene.remove( self.ui.mesh );
-        }
-        
-        const btn = new VRButton( this.renderer, { onSessionStart, onSessionEnd } );
+        new VRButton( this.renderer );
         
         const controllerModelFactory = new XRControllerModelFactory();
 
@@ -132,7 +122,7 @@ class App{
     }
     
 	render( ) {   
-        if ( this.renderer.xr.isPresenting ) this.ui.update();
+        this.ui.update();
         this.renderer.render( this.scene, this.camera );
     }
 }

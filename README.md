@@ -275,7 +275,7 @@ Let's use the woff2 URL from the `src` attribute as parameters of the [FontFace 
 So far we've only added text elements to the UI. In this example we'll add **buttons**. Buttons work by detecting the movement and trigger button on your VR controllers. To ensure that they work correctly, add this to the renderers animation loop. 
 
 ```
-if ( renderer.xr.isPresenting ) ui.update();
+ui.update();
 ```
 
 The CanvasUI class detects your controllers but does not display them. To ensure a visual representation of the controllers. Use the usual code. For example.
