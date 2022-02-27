@@ -103,7 +103,7 @@ That's it !
 
 </details>
 
-## Widgets
+## Examples
 <details>
   <summary>Panel : Header, Main, Footer</summary>
 
