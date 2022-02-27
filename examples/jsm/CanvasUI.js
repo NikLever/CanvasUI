@@ -47,19 +47,7 @@ class CanvasUI{
                 borderRadius: 6
             }
         }
-		this.config = (config===undefined) ? defaultconfig : config;
-        
-        if (this.config.width === undefined) this.config.width = 512;
-        if (this.config.height === undefined) this.config.height = 512;
-        if (this.config.body === undefined) this.config.body = {fontFamily:'Arial', size:30, padding:20, backgroundColor: '#000', fontColor:'#fff', borderRadius: 6};
-        
-        const body = this.config.body;
-        if (body.borderRadius === undefined) body.borderRadius = 6;
-        if (body.fontFamily === undefined) body.fontFamily = "Arial";
-        if (body.padding === undefined) body.padding = 20;
-        if (body.fontSize === undefined) body.fontSize = 30;
-        if (body.backgroundColor === undefined) body.backgroundColor = '#000';
-        if (body.fontColor === undefined) body.fontColor = '#fff';
+		this.config = (config===undefined) ? defaultconfig : this.merge(defaultconfig, config);
         
         Object.entries( this.config ).forEach( ( [ name, value]) => {
             if ( typeof(value) === 'object' && name !== 'panelSize' && !(value instanceof WebGLRenderer) && !(value instanceof Scene) ){
@@ -137,6 +125,29 @@ class CanvasUI{
         this.update();
 	}
 	
+    merge(...objects) {
+        const isObject = obj => obj && typeof obj === 'object';
+        
+        return objects.reduce((prev, obj) => {
+          Object.keys(obj).forEach(key => {
+            const pVal = prev[key];
+            const oVal = obj[key];
+            
+            if (Array.isArray(pVal) && Array.isArray(oVal)) {
+              prev[key] = pVal.concat(...oVal);
+            }
+            else if (isObject(pVal) && isObject(oVal)) {
+              prev[key] = this.merge(pVal, oVal);
+            }
+            else {
+              prev[key] = oVal;
+            }
+          });
+          
+          return prev;
+        }, {});
+    }
+
     getIntersectY( index ){
         const height = this.config.height || 512;
         const intersect = this.intersects[index];
