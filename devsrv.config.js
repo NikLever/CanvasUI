@@ -8,18 +8,22 @@ const config = {
     textReplacements: [
         {
             queryVar:"r",
-            queryVarRegexp:"^0\\.[0-9]{3}$",
-            replaceRegexp:"THREEJSVERSION",
+            queryVarRegexp:/^0\.[0-9]{3}$/,
+            replaceRegexp:/THREEJSVERSION/g,
             defaultValue:"0.119",
-            pathRegexp:"(\\.(html|js))|(\\/)$"
+            pathRegexp:/\.(html|jsm?)|(\/)$/
+        },{
+            replaceRegexp:/\<!-- DEVSRVMONITOR -->/g,
+            defaultValue:'<script type="text/javascript" src="../../js/devsrv-monitor.js"></script>',
+            pathRegexp:/\.(html|jsm?)|(\/)$/
         }
     ],
     buildOptions:{
         src:"./examples",
-        dst:"./dist/v1.0.0/threejs.119",
-        replaceRegexp:"THREEJSVERSION",
+        dst:"./dist/v1.0.0/threejs.135",
+        replaceRegexp:/THREEJSVERSION/g,
         defaultValue:"0.119",
-        fileRegexp:"\\.(html|js)$"
+        fileRegexp:/\.(html|js)$/
     }, 
     monitorOptions:{
         enable:true,
