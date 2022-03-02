@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/NikLever/CanvasUI#readme",
   "dependencies": {
-    "@eviltik/devsrv": "1.5.0"
+    "@eviltik/devsrv": "1.5.2"
   }
 }
 
