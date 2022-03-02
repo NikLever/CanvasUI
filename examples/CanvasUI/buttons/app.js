@@ -82,9 +82,10 @@ class App{
             prev: { type: "button", position:{ top: 64, left: 0 }, width: 64, fontColor: "#bb0", hover: "#ff0", onSelect: onPrev },
             stop: { type: "button", position:{ top: 64, left: 64 }, width: 64, fontColor: "#bb0", hover: "#ff0", onSelect: onStop },
             next: { type: "button", position:{ top: 64, left: 128 }, width: 64, fontColor: "#bb0", hover: "#ff0", onSelect: onNext },
-            continue: { type: "button", position:{ top: 70, right: 10 }, width: 200, height: 52, fontColor: "#fff", backgroundColor: "#1bf", hover: "#3df", onSelect: onContinue },
+            continue: { type: "button", position:{ top: 70, right: 10 }, width: 200, height: 52, fontColor: "#fff", backgroundColor: "#2659a4", hover: "#3df", onSelect: onContinue },
             renderer: this.renderer
         }
+
         const content = {
             info: "",
             prev: "<path>M 10 32 L 54 10 L 54 54 Z</path>",
@@ -92,6 +93,7 @@ class App{
             next: "<path>M 54 32 L 10 10 L 10 54 Z</path>",
             continue: "Continue"
         }
+
         this.ui = new CanvasUI( content, config );
 
         this.ui.mesh.position.set( 0, 1, -3 );
