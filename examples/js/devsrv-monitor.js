@@ -30,4 +30,5 @@ function devsrvMonitorFileChanges() {
 
 }
 
-devsrvMonitorFileChanges();
+setTimeout(devsrvMonitorFileChanges, 1000);
+

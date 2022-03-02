@@ -29,7 +29,7 @@ const config = {
         enable:true,
         directories:[ './' ],
         fileRegexp:/\.(html|jsm?)$/,
-        excludeRegexp: /node_modules/
+        excludeRegexp:/node_modules/
     }
 }
 
