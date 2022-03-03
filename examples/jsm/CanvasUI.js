@@ -134,12 +134,14 @@ class CanvasUI{
             const oVal = obj[key];
             
             if (Array.isArray(pVal) && Array.isArray(oVal)) {
-              prev[key] = pVal.concat(...oVal);
-            }
-            else if (isObject(pVal) && isObject(oVal)) {
-              prev[key] = this.merge(pVal, oVal);
-            }
-            else {
+                // use this line to contact object rather than replace
+                //prev[key] = pVal.concat(...oVal);
+
+                // replace 
+                prev[key] = oVal;
+            } else if (isObject(pVal) && isObject(oVal)) {
+                prev[key] = this.merge(pVal, oVal);
+            } else {
               prev[key] = oVal;
             }
           });
