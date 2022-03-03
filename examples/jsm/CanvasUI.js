@@ -205,9 +205,13 @@ class CanvasUI{
         function onSelectStart( event ){
             const index = (event.target === self.controller) ? 0 : 1;
             self.selectPressed[index] = true;
-            if ( self.selectedElements[index] !== undefined && self.selectedElements[index].overflow == "scroll"){
+            if ( self.selectedElements[index] !== undefined){
                 const elm = self.selectedElements[index];
-                self.scrollData[index] = { scrollY: elm.scrollY, rayY: self.getIntersectY(index) };
+                if (elm.overflow == "scroll"){ 
+                    self.scrollData[index] = { scrollY: elm.scrollY, rayY: self.getIntersectY(index) };
+                }else if (elm.type == "slider"){
+                    elm.slider.scrollData = { scrollX: elm.scrollX, rayX: self.getIntersectX(index) };
+                }
             }
         }
         
@@ -472,6 +476,14 @@ class CanvasUI{
                         if (config.onChange) config.picker.onChange = config.onChange;
                     }
                     config.picker.update(context);
+                }else if(config.type=='slider'){
+                    if (config.slider === undefined){
+                        const val = (content!==undefined) ? content : 0;
+                        const range = { min: config.min ? config.min : 0, max: config.max ? config.max : 1 }
+                        config.slider = new Slider(pos.x, pos.y, width, height, range, val);
+                        if (config.onChange) config.slider.onChange = config.onChange;
+                    }
+                    config.slider.update(context);
                 }else{
                 
                     const svgPath = content.toLowerCase().startsWith("<path>");
@@ -669,6 +681,37 @@ class CanvasUI{
 			y += lineHeight;
 		});
 	}
+}
+
+class Slider{
+    constructor(x, y, w, h, range={min:0, max:1}, value=0.5){
+        this.min = range.min;
+        this.max = range.max;
+        this.value = value;
+        this.init(x, y, w, h);
+        this.needsUpdate = false;
+    }
+  
+    init(x, y, w, h){
+        this.left = w*0.85;
+        let gap = Math.max(w*0.05, h*0.05);
+        this.slider = {x,y,width:left-gap,height:h};
+        this.text = {x:left + x,y,width:w-left,height:h};
+        const fontSize = this.text.width * 0.2;
+        this.font = `${fontSize}px sans-serif`;
+    }
+
+    drawSlider(ctx){
+
+    }
+
+    update(ctx){
+        this.drawSlider(ctx)
+        ctx.font = this.font;
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(this.value.toFixed(2));
+    }
 }
 
 class ColorPicker{
