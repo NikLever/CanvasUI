@@ -48,29 +48,29 @@ class CanvasUI{
             }
         }
 		this.config = (config===undefined) ? defaultconfig : this.merge(defaultconfig, config);
-        
+
         Object.entries( this.config ).forEach( ( [ name, value]) => {
-            if ( typeof(value) === 'object' && name !== 'panelSize' && !(value instanceof WebGLRenderer) && !(value instanceof Scene) ){
-                const pos = (value.position!==undefined) ? value.position : { x: 0, y: 0 };
-                
-                if (pos.left !== undefined && pos.x === undefined ) pos.x = pos.left;
-                if (pos.top !== undefined && pos.y === undefined ) pos.y = pos.top;
+            if ( !this.isCanvasUIObjectDefinition(value, name)) return;
 
-                const width = (value.width!==undefined) ? value.width : this.config.width;
-                const height = (value.height!==undefined) ? value.height : this.config.height;
+            const pos = (value.position!==undefined) ? value.position : { x: 0, y: 0 };
+            
+            if (pos.left !== undefined && pos.x === undefined ) pos.x = pos.left;
+            if (pos.top !== undefined && pos.y === undefined ) pos.y = pos.top;
 
-                if (pos.right !== undefined && pos.x === undefined ) pos.x = this.config.width - pos.right - width;
-                if (pos.bottom !== undefined && pos.y === undefined ) pos.y = this.config.height - pos.bottom - height;
-                
-                if (pos.x === undefined) pos.x = 0;
-                if (pos.y === undefined) pos.y = 0;
-                
-                value.position = pos;
-                
-                if (value.type === undefined) value.type = 'text';
-            }
+            const width = (value.width!==undefined) ? value.width : this.config.width;
+            const height = (value.height!==undefined) ? value.height : this.config.height;
+
+            if (pos.right !== undefined && pos.x === undefined ) pos.x = this.config.width - pos.right - width;
+            if (pos.bottom !== undefined && pos.y === undefined ) pos.y = this.config.height - pos.bottom - height;
+            
+            if (pos.x === undefined) pos.x = 0;
+            if (pos.y === undefined) pos.y = 0;
+            
+            value.position = pos;
+            
+            if (value.type === undefined) value.type = 'text';
+            
         })
-        
         
         const canvas = this.createOffscreenCanvas(this.config.width, this.config.height);
         this.context = canvas.getContext('2d');
@@ -125,6 +125,23 @@ class CanvasUI{
         this.update();
 	}
 	
+    isCanvasUIObjectDefinition(value, name) {
+        if (typeof value !== 'object') return;
+        if (name === 'panelSize') return;
+        if (value instanceof WebGLRenderer) return;
+        if (value instanceof Scene) return;
+        return true;
+    }
+
+    isCanvasUIMesh(elm, name) {
+        if (typeof elm !== 'object') return;
+        if (name === 'panelSize') return;
+        if (name === 'body') return;
+        if (elm instanceof WebGLRenderer) return; 
+        if (elm instanceof Scene) return;
+        return true;
+    }
+
     merge(...objects) {
         const isObject = obj => obj && typeof obj === 'object';
         
@@ -334,7 +351,7 @@ class CanvasUI{
     getElementAtLocation( x, y ){
         const self = this;
         const elms = Object.entries( this.config ).filter( ([ name, elm ]) => {
-            if (typeof elm === 'object' && name !== 'panelSize' && name !== 'body' && !(elm instanceof WebGLRenderer) && !(elm instanceof Scene)){
+            if (this.isCanvasUIMesh(elm, name)) {
                 const pos = elm.position;
                 const width = (elm.width !== undefined) ? elm.width : self.config.width;
                 const height = (elm.height !== undefined) ? elm.height : self.config.height;
