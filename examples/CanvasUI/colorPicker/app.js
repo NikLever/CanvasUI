@@ -70,6 +70,8 @@ class App{
         this.ui.mesh.position.set( 0, 1.5, -1.6 );
         this.scene.attach(this.ui.mesh);
 
+        const self = this;
+        
         function onChange(hex){
             const msg = `Picker color changed to (${hex})`;
             console.log(msg);
