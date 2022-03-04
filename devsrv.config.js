@@ -9,7 +9,7 @@ const config = {
         {
             queryVar:"r",
             queryVarRegexp:/^0\.[0-9]{3}$/,
-            replaceRegexp:/THREEJSVERSION/g,
+            replaceRegexp:/0\.119/g,
             defaultValue:"0.119",
             pathRegexp:/\.(html|jsm?)|(\/)$/
         },{

@@ -1,4 +1,4 @@
-import { Color } from 'https://cdn.skypack.dev/three@THREEJSVERSION';
+import { Color } from 'https://cdn.skypack.dev/three@0.119';
 
 class CanvasColorPicker{
     constructor(x, y, w, h, col){
