@@ -1,6 +1,6 @@
 // see devsrv.config.json for threejs version dynamically replaced by devsrv
-import * as THREE from 'https://cdn.skypack.dev/three@THREEJSVERSION';
-import { BoxLineGeometry } from 'https://cdn.skypack.dev/three@THREEJSVERSION/examples/jsm/geometries/BoxLineGeometry.js';
+import * as THREE from 'https://cdn.skypack.dev/three@0.119';
+import { BoxLineGeometry } from 'https://cdn.skypack.dev/three@0.119/examples/jsm/geometries/BoxLineGeometry.js';
 
 import { CanvasUI } from '../../jsm/CanvasUI.js'
 import { VRButton } from '../../jsm/VRButton.js';
@@ -57,23 +57,15 @@ class App{
             info: "The promo image from the course: Learn to create WebXR, VR and AR, experiences using Three.JS"
         }
         this.ui = new CanvasUI( content, config );
+    
+        this.ui.mesh.position.set( 0, 1.5, -1.6 );
+        this.camera.attach( this.ui.mesh );
     }
     
     setupXR(){
         this.renderer.xr.enabled = true; 
         
-        const self = this;
-        
-        function onSessionStart(){
-            self.ui.mesh.position.set( 0, 1.5, -1.2 );
-            self.camera.attach( self.ui.mesh );
-        }
-        
-        function onSessionEnd(){
-            self.camera.remove( self.ui.mesh );
-        }
-        
-        const btn = new VRButton( this.renderer, { onSessionStart, onSessionEnd } );
+        new VRButton( this.renderer );
         
         this.renderer.setAnimationLoop( this.render.bind(this) );
     }
@@ -85,7 +77,7 @@ class App{
     }
     
 	render( ) {   
-        if ( this.renderer.xr.isPresenting ) this.ui.update();
+        this.ui.update();
         this.renderer.render( this.scene, this.camera );
     }
 }

@@ -1,7 +1,7 @@
 // see devsrv.config.json for threejs version dynamically replaced by devsrv
-import * as THREE from 'https://cdn.skypack.dev/three@THREEJSVERSION';
-import { BoxLineGeometry } from 'https://cdn.skypack.dev/three@THREEJSVERSION/examples/jsm/geometries/BoxLineGeometry.js';
-import { XRControllerModelFactory } from 'https://cdn.skypack.dev/three@THREEJSVERSION/examples/jsm/webxr/XRControllerModelFactory.js';
+import * as THREE from 'https://cdn.skypack.dev/three@0.119';
+import { BoxLineGeometry } from 'https://cdn.skypack.dev/three@0.119/examples/jsm/geometries/BoxLineGeometry.js';
+import { XRControllerModelFactory } from 'https://cdn.skypack.dev/three@0.119/examples/jsm/webxr/XRControllerModelFactory.js';
 
 import { CanvasUI } from '../../jsm/CanvasUI.js'
 import { VRButton } from '../../jsm/VRButton.js';
@@ -65,27 +65,18 @@ class App{
             label: { type: "text", position: { top: 64 }}
         }
         const content = {
-            message: "",
-            label: "Select the panel above."
+            message: "Click or select me",
+            label: "Keyboard demo"
         }
         this.ui = new CanvasUI( content, config );
+        this.ui.mesh.position.set( 0, 1.8, -3 );
+        this.scene.add( this.ui.mesh );
     }
     
     setupXR(){
         this.renderer.xr.enabled = true; 
         
-        const self = this;
-        
-        function onSessionStart(){
-            self.ui.mesh.position.set( 0, 1.5, -2 );
-            self.scene.add( self.ui.mesh );
-        }
-        
-        function onSessionEnd(){
-            self.scene.remove( self.ui.mesh );
-        }
-        
-        const btn = new VRButton( this.renderer, { onSessionStart, onSessionEnd } );
+        new VRButton( this.renderer );
         
         const controllerModelFactory = new XRControllerModelFactory();
 
@@ -125,7 +116,7 @@ class App{
     }
     
 	render( ) {   
-        if ( this.renderer.xr.isPresenting ) this.ui.update();
+        this.ui.update();
         this.renderer.render( this.scene, this.camera );
     }
 }

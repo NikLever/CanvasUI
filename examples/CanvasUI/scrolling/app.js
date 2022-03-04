@@ -1,7 +1,7 @@
 // see devsrv.config.json for threejs version dynamically replaced by devsrv
-import * as THREE from 'https://cdn.skypack.dev/three@THREEJSVERSION';
-import { BoxLineGeometry } from 'https://cdn.skypack.dev/three@THREEJSVERSION/examples/jsm/geometries/BoxLineGeometry.js';
-import { XRControllerModelFactory } from 'https://cdn.skypack.dev/three@THREEJSVERSION/examples/jsm/webxr/XRControllerModelFactory.js';
+import * as THREE from 'https://cdn.skypack.dev/three@0.119';
+import { BoxLineGeometry } from 'https://cdn.skypack.dev/three@0.119/examples/jsm/geometries/BoxLineGeometry.js';
+import { XRControllerModelFactory } from 'https://cdn.skypack.dev/three@0.119/examples/jsm/webxr/XRControllerModelFactory.js';
 
 import { CanvasUI } from '../../jsm/CanvasUI.js'
 import { VRButton } from '../../jsm/VRButton.js';
@@ -59,23 +59,14 @@ class App{
             txt: "This is an example of a scrolling panel. Select it with a controller and move the controller while keeping the select button pressed. In an AR app just press and drag. If a panel is set to scroll and the overflow setting is 'scroll', then a scroll bar will appear when the panel is active. But to scroll you can just drag anywhere on the panel. This is an example of a scrolling panel. Select it with a controller and move the controller while keeping the select button pressed. In an AR app just press and drag. If a panel is set to scroll and the overflow setting is 'scroll', then a scroll bar will appear when the panel is active. But to scroll you can just drag anywhere on the panel."
         }
         this.ui = new CanvasUI( content, config );
+        this.ui.mesh.position.set( 0, 1.5, -1.6 );
+        this.camera.attach( this.ui.mesh );
     }
     
     setupXR(){
         this.renderer.xr.enabled = true; 
         
-        const self = this;
-        
-        function onSessionStart(){
-            self.ui.mesh.position.set( 0, 1.5, -1.2 );
-            self.camera.attach( self.ui.mesh );
-        }
-        
-        function onSessionEnd(){
-            self.camera.remove( self.ui.mesh );
-        }
-        
-        const btn = new VRButton( this.renderer, { onSessionStart, onSessionEnd } );
+        new VRButton( this.renderer );
         
         const controllerModelFactory = new XRControllerModelFactory();
 

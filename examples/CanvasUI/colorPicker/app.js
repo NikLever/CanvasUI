@@ -1,7 +1,7 @@
 // see devsrv.config.json for threejs version dynamically replaced by devsrv
-import * as THREE from 'https://cdn.skypack.dev/three@THREEJSVERSION';
-import { BoxLineGeometry } from 'https://cdn.skypack.dev/three@THREEJSVERSION/examples/jsm/geometries/BoxLineGeometry.js';
-import { XRControllerModelFactory } from 'https://cdn.skypack.dev/three@THREEJSVERSION/examples/jsm/webxr/XRControllerModelFactory.js';
+import * as THREE from 'https://cdn.skypack.dev/three@0.119';
+import { BoxLineGeometry } from 'https://cdn.skypack.dev/three@0.119/examples/jsm/geometries/BoxLineGeometry.js';
+import { XRControllerModelFactory } from 'https://cdn.skypack.dev/three@0.119/examples/jsm/webxr/XRControllerModelFactory.js';
 
 import { CanvasUI } from '../../jsm/CanvasUI.js'
 import { VRButton } from '../../jsm/VRButton.js';
@@ -67,6 +67,9 @@ class App{
         }
         this.ui = new CanvasUI( content, config );
 
+        this.ui.mesh.position.set( 0, 1.5, -1.6 );
+        this.scene.attach(this.ui.mesh);
+
         const self = this;
 
         function onChange(hex){
@@ -79,18 +82,7 @@ class App{
     setupXR(){
         this.renderer.xr.enabled = true; 
         
-        const self = this;
-        
-        function onSessionStart(){
-            self.ui.mesh.position.set( 0, 1.5, -1.2 );
-            self.scene.attach(self.ui.mesh);
-        }
-        
-        function onSessionEnd(){
-            self.scene.remove( self.ui.mesh );
-        }
-        
-        const btn = new VRButton( this.renderer, { onSessionStart, onSessionEnd } );
+        new VRButton( this.renderer );
         
         const controllerModelFactory = new XRControllerModelFactory();
 
@@ -132,7 +124,7 @@ class App{
     }
     
 	render( ) {   
-        if ( this.renderer.xr.isPresenting ) this.ui.update();
+        this.ui.update();
         this.renderer.render( this.scene, this.camera );
     }
 }
