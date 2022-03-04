@@ -513,6 +513,7 @@ class CanvasUI{
                         const val = (content!==undefined) ? content : 0;
                         const range = { min: config.min ? config.min : 0, max: config.max ? config.max : 1 }
                         config.slider = new CanvasSlider(pos.x, pos.y, width, height, range, val);
+                        config.slider.canvasui = this;
                         if (config.onChange) config.slider.onChange = config.onChange;
                     }
                     config.slider.update(context);
