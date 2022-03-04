@@ -8,7 +8,8 @@ import { Mesh,
         WebGLRenderer, 
         Vector3, 
         IcosahedronBufferGeometry,
-} from 'https://cdn.skypack.dev/three@0.119';
+        Color
+    } from 'https://cdn.skypack.dev/three@0.119';
 
 import { CanvasKeyboard } from './CanvasKeyboard.js';
 import { CanvasColorPicker } from './CanvasColorPicker.js';

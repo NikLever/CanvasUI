@@ -65,11 +65,11 @@ class App{
             label: { type: "text", position: { top: 64 }}
         }
         const content = {
-            message: "",
-            label: "Select the panel above."
+            message: "Click or select me",
+            label: "Keyboard demo"
         }
         this.ui = new CanvasUI( content, config );
-        this.ui.mesh.position.set( 0, 1.5, -2 );
+        this.ui.mesh.position.set( 0, 1.8, -3 );
         this.scene.add( this.ui.mesh );
     }
     
