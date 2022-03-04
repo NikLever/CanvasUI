@@ -8,10 +8,10 @@ import { Mesh,
         WebGLRenderer, 
         Vector3, 
         IcosahedronBufferGeometry,
-        Color
-    } from 'https://cdn.skypack.dev/three@THREEJSVERSION';
+} from 'https://cdn.skypack.dev/three@0.119';
 
-    import { CanvasKeyboard } from './CanvasKeyboard.js';
+import { CanvasKeyboard } from './CanvasKeyboard.js';
+import { CanvasColorPicker } from './CanvasColorPicker.js';
 
 /*An element is defined by 
 type: text | button | image | shape
@@ -47,42 +47,30 @@ class CanvasUI{
                 borderRadius: 6
             }
         }
-		this.config = (config===undefined) ? defaultconfig : config;
-        
-        if (this.config.width === undefined) this.config.width = 512;
-        if (this.config.height === undefined) this.config.height = 512;
-        if (this.config.body === undefined) this.config.body = {fontFamily:'Arial', size:30, padding:20, backgroundColor: '#000', fontColor:'#fff', borderRadius: 6};
-        
-        const body = this.config.body;
-        if (body.borderRadius === undefined) body.borderRadius = 6;
-        if (body.fontFamily === undefined) body.fontFamily = "Arial";
-        if (body.padding === undefined) body.padding = 20;
-        if (body.fontSize === undefined) body.fontSize = 30;
-        if (body.backgroundColor === undefined) body.backgroundColor = '#000';
-        if (body.fontColor === undefined) body.fontColor = '#fff';
-        
+		this.config = (config===undefined) ? defaultconfig : this.merge(defaultconfig, config);
+
         Object.entries( this.config ).forEach( ( [ name, value]) => {
-            if ( typeof(value) === 'object' && name !== 'panelSize' && !(value instanceof WebGLRenderer) && !(value instanceof Scene) ){
-                const pos = (value.position!==undefined) ? value.position : { x: 0, y: 0 };
-                
-                if (pos.left !== undefined && pos.x === undefined ) pos.x = pos.left;
-                if (pos.top !== undefined && pos.y === undefined ) pos.y = pos.top;
+            if ( !this.isCanvasUIObjectDefinition(value, name)) return;
 
-                const width = (value.width!==undefined) ? value.width : this.config.width;
-                const height = (value.height!==undefined) ? value.height : this.config.height;
+            const pos = (value.position!==undefined) ? value.position : { x: 0, y: 0 };
+            
+            if (pos.left !== undefined && pos.x === undefined ) pos.x = pos.left;
+            if (pos.top !== undefined && pos.y === undefined ) pos.y = pos.top;
 
-                if (pos.right !== undefined && pos.x === undefined ) pos.x = this.config.width - pos.right - width;
-                if (pos.bottom !== undefined && pos.y === undefined ) pos.y = this.config.height - pos.bottom - height;
-                
-                if (pos.x === undefined) pos.x = 0;
-                if (pos.y === undefined) pos.y = 0;
-                
-                value.position = pos;
-                
-                if (value.type === undefined) value.type = 'text';
-            }
+            const width = (value.width!==undefined) ? value.width : this.config.width;
+            const height = (value.height!==undefined) ? value.height : this.config.height;
+
+            if (pos.right !== undefined && pos.x === undefined ) pos.x = this.config.width - pos.right - width;
+            if (pos.bottom !== undefined && pos.y === undefined ) pos.y = this.config.height - pos.bottom - height;
+            
+            if (pos.x === undefined) pos.x = 0;
+            if (pos.y === undefined) pos.y = 0;
+            
+            value.position = pos;
+            
+            if (value.type === undefined) value.type = 'text';
+            
         })
-        
         
         const canvas = this.createOffscreenCanvas(this.config.width, this.config.height);
         this.context = canvas.getContext('2d');
@@ -137,6 +125,48 @@ class CanvasUI{
         this.update();
 	}
 	
+    isCanvasUIObjectDefinition(value, name) {
+        if (typeof value !== 'object') return;
+        if (name === 'panelSize') return;
+        if (value instanceof WebGLRenderer) return;
+        if (value instanceof Scene) return;
+        return true;
+    }
+
+    isCanvasUIMesh(elm, name) {
+        if (typeof elm !== 'object') return;
+        if (name === 'panelSize') return;
+        if (name === 'body') return;
+        if (elm instanceof WebGLRenderer) return; 
+        if (elm instanceof Scene) return;
+        return true;
+    }
+
+    merge(...objects) {
+        const isObject = obj => obj && typeof obj === 'object';
+        
+        return objects.reduce((prev, obj) => {
+          Object.keys(obj).forEach(key => {
+            const pVal = prev[key];
+            const oVal = obj[key];
+            
+            if (Array.isArray(pVal) && Array.isArray(oVal)) {
+                // use this line to contact object rather than replace
+                //prev[key] = pVal.concat(...oVal);
+
+                // replace 
+                prev[key] = oVal;
+            } else if (isObject(pVal) && isObject(oVal)) {
+                prev[key] = this.merge(pVal, oVal);
+            } else {
+              prev[key] = oVal;
+            }
+          });
+          
+          return prev;
+        }, {});
+    }
+
     getIntersectY( index ){
         const height = this.config.height || 512;
         const intersect = this.intersects[index];
@@ -325,7 +355,7 @@ class CanvasUI{
     getElementAtLocation( x, y ){
         const self = this;
         const elms = Object.entries( this.config ).filter( ([ name, elm ]) => {
-            if (typeof elm === 'object' && name !== 'panelSize' && name !== 'body' && !(elm instanceof WebGLRenderer) && !(elm instanceof Scene)){
+            if (this.isCanvasUIMesh(elm, name)) {
                 const pos = elm.position;
                 const width = (elm.width !== undefined) ? elm.width : self.config.width;
                 const height = (elm.height !== undefined) ? elm.height : self.config.height;
@@ -472,7 +502,7 @@ class CanvasUI{
                 if(config.type=='picker'){
                     if (config.picker === undefined){
                         const col = (content!==undefined) ? content : '#ff0000';
-                        config.picker = new ColorPicker(pos.x, pos.y, width, height, col);
+                        config.picker = new CanvasColorPicker(pos.x, pos.y, width, height, col);
                         if (config.onChange) config.picker.onChange = config.onChange;
                     }
                     config.picker.update(context);

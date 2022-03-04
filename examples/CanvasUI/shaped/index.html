@@ -13,12 +13,8 @@
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="theme-color" content="#ffffff">
         <!-- end favicon -->
-        <style>
-            body{
-                margin: 0;
-            }
-        </style>
-        <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap" rel="stylesheet">
+        <!-- DEVSRVMONITOR -->
+        <link href="../../css/common.css" rel="stylesheet">
 	</head>
 	<body>
         <script src="../../js/fas.js"></script>
@@ -26,8 +22,17 @@
             import { App } from './app.js';
 
             document.addEventListener("DOMContentLoaded", function(){
-                const app = new App();
-                window.app = app;
+
+                let myFont = new FontFace(
+                    "Gochi Hand",
+                    "url(https://fonts.gstatic.com/s/gochihand/v14/hES06XlsOjtJsgCkx1Pkfon_-w.woff2)"
+                );
+
+                myFont.load().then(font => {
+                    document.fonts.add(font);
+                    const app = new App();
+                    window.app = app;
+                });
             });
         </script>
 	</body>

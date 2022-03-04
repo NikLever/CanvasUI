@@ -1,7 +1,7 @@
 // see devsrv.config.json for threejs version dynamically replaced by devsrv
-import * as THREE from 'https://cdn.skypack.dev/three@THREEJSVERSION';
-import { BoxLineGeometry } from 'https://cdn.skypack.dev/three@THREEJSVERSION/examples/jsm/geometries/BoxLineGeometry.js';
-import { XRControllerModelFactory } from 'https://cdn.skypack.dev/three@THREEJSVERSION/examples/jsm/webxr/XRControllerModelFactory.js';
+import * as THREE from 'https://cdn.skypack.dev/three@0.119';
+import { BoxLineGeometry } from 'https://cdn.skypack.dev/three@0.119/examples/jsm/geometries/BoxLineGeometry.js';
+import { XRControllerModelFactory } from 'https://cdn.skypack.dev/three@0.119/examples/jsm/webxr/XRControllerModelFactory.js';
 
 import { CanvasUI } from '../../jsm/CanvasUI.js'
 import { VRButton } from '../../jsm/VRButton.js';
@@ -82,9 +82,10 @@ class App{
             prev: { type: "button", position:{ top: 64, left: 0 }, width: 64, fontColor: "#bb0", hover: "#ff0", onSelect: onPrev },
             stop: { type: "button", position:{ top: 64, left: 64 }, width: 64, fontColor: "#bb0", hover: "#ff0", onSelect: onStop },
             next: { type: "button", position:{ top: 64, left: 128 }, width: 64, fontColor: "#bb0", hover: "#ff0", onSelect: onNext },
-            continue: { type: "button", position:{ top: 70, right: 10 }, width: 200, height: 52, fontColor: "#fff", backgroundColor: "#1bf", hover: "#3df", onSelect: onContinue },
+            continue: { type: "button", position:{ top: 70, right: 10 }, width: 200, height: 52, fontColor: "#fff", backgroundColor: "#2659a4", hover: "#3df", onSelect: onContinue },
             renderer: this.renderer
         }
+
         const content = {
             info: "",
             prev: "<path>M 10 32 L 54 10 L 54 54 Z</path>",
@@ -92,24 +93,17 @@ class App{
             next: "<path>M 54 32 L 10 10 L 10 54 Z</path>",
             continue: "Continue"
         }
+
         this.ui = new CanvasUI( content, config );
+
+        this.ui.mesh.position.set( 0, 1, -3 );
+        this.scene.add( self.ui.mesh );
     }
     
     setupXR(){
         this.renderer.xr.enabled = true; 
-        
-        const self = this;
-        
-        function onSessionStart(){
-            self.ui.mesh.position.set( 0, 1, -3 );
-            self.scene.add( self.ui.mesh );
-        }
-        
-        function onSessionEnd(){
-            self.scene.remove( self.ui.mesh );
-        }
-        
-        const btn = new VRButton( this.renderer, { onSessionStart, onSessionEnd } );
+                
+        new VRButton( this.renderer );
 
         const controllerModelFactory = new XRControllerModelFactory();
 
@@ -151,9 +145,7 @@ class App{
     }
     
 	render( ) {   
-        if ( this.renderer.xr.isPresenting ){
-            this.ui.update();
-        }
+        this.ui.update();
         this.renderer.render( this.scene, this.camera );
     }
 }
