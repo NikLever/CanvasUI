@@ -56,10 +56,10 @@ class App{
     
     createUI() {
         const config = {
-            panelSize: { width: 2, height: 1 },
-            height: 256,
-            slider: { type: "slider", position: { left: 20, top: 20 }, width:472, height:88, onChange },
-            info: { type: "text", position: { left: 20, top: 128 }, fontSize:18, },
+            panelSize: { width: 1, height: 0.25 },
+            height: 128,
+            slider: { type: "slider", position: { left: 20, top: 20 }, width:472, height:34, min:0.5, max:2, onChange },
+            info: { type: "text", position: { left: 20, top: 64 }, fontSize:18, },
             opacity: 1,
             renderer: this.renderer
         }
