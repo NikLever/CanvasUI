@@ -8,6 +8,7 @@ import { Mesh,
         WebGLRenderer, 
         Vector3, 
         IcosahedronBufferGeometry,
+        Camera,
     } from 'https://cdn.skypack.dev/three@0.119';
 
 import { CanvasKeyboard } from './CanvasKeyboard.js';
@@ -35,6 +36,9 @@ border: width color style
 class CanvasUI{
 	constructor(content, config){
         const defaultconfig = {
+            renderer:undefined,
+            camera:undefined,
+            mouseHandler:undefined,
             panelSize: { width: 1, height: 1},
             width: 512,
             height: 512,
@@ -131,15 +135,17 @@ class CanvasUI{
         if (name === 'panelSize') return;
         if (value instanceof WebGLRenderer) return;
         if (value instanceof Scene) return;
+        if (value instanceof Camera) return;
         return true;
     }
 
-    isCanvasUIMesh(elm, name) {
-        if (typeof elm !== 'object') return;
+    isCanvasUIMesh(value, name) {
+        if (typeof value !== 'object') return;
         if (name === 'panelSize') return;
         if (name === 'body') return;
-        if (elm instanceof WebGLRenderer) return; 
-        if (elm instanceof Scene) return;
+        if (value instanceof WebGLRenderer) return; 
+        if (value instanceof Scene) return;
+        if (value instanceof Camera) return;
         return true;
     }
 
