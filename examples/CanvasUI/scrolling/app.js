@@ -51,6 +51,8 @@ class App{
     createUI() {
         const config = {
             renderer: this.renderer,
+            camera: this.camera,
+            mouseHandler: 'follow',
             scene: this.scene,
             body: { backgroundColor: "#666" },
             txt: { type: "text", overflow: "scroll", position: { left: 20, top: 20 }, width: 400, height: 400, backgroundColor: "#fff", fontColor: "#000" }

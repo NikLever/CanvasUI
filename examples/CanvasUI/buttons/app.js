@@ -83,7 +83,9 @@ class App{
             stop: { type: "button", position:{ top: 64, left: 64 }, width: 64, fontColor: "#bb0", hover: "#ff0", onSelect: onStop },
             next: { type: "button", position:{ top: 64, left: 128 }, width: 64, fontColor: "#bb0", hover: "#ff0", onSelect: onNext },
             continue: { type: "button", position:{ top: 70, right: 10 }, width: 200, height: 52, fontColor: "#fff", backgroundColor: "#2659a4", hover: "#3df", onSelect: onContinue },
-            renderer: this.renderer
+            renderer: this.renderer,
+            camera: this.camera,
+            mouseHandler: 'follow'
         }
 
         const content = {

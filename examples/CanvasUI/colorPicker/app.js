@@ -59,7 +59,9 @@ class App{
             picker: { type: "picker", position: { left: 20, top: 20 }, width:472, height:422, onChange },
             info: { type: "text", position: { left: 20, top: 452 }, fontSize:18, },
             opacity: 1,
-            renderer: this.renderer
+            renderer: this.renderer,
+            camera: this.camera,
+            mouseHandler: 'follow'
         }
         const content = {
             picker: "#00ff00",
