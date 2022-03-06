@@ -22,10 +22,16 @@ class CanvasSlider{
         } 
     }
 
+    setValueFromPos(x){
+        //console.log(`x:${x.toFixed(2)}`);
+        this.value = ((x - this.slider.x)/this.slider.width) * (this.max-this.min) + this.min; 
+        if (this.onChange) this.onChange(this.value);
+    }
+
     drawSlider(ctx){
         if (this.canvasui){
             if (this.bar){
-                ctx.fillStyle = '#777';
+                ctx.fillStyle = '#444';
                 this.canvasui.fillRoundedRect(this.slider.x, this.slider.y, this.slider.width, this.slider.height, 6);
                 ctx.fillStyle = '#33f';
                 const width = this.slider.width * (this.value - this.min)/(this.max-this.min);
@@ -44,6 +50,7 @@ class CanvasSlider{
     }
 
     update(ctx){
+        //console.log('Slider update');
         this.drawSlider(ctx)
         ctx.font = this.text.font;
         ctx.textAlign = 'left';

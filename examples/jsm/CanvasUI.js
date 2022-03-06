@@ -169,6 +169,14 @@ class CanvasUI{
         }, {});
     }
 
+    getIntersectX( index ){
+        const width = this.config.width || 512;
+        const intersect = this.intersects[index];
+        if (intersect === undefined ) return 0;
+        if ( intersect.uv === undefined ) return 0;
+        return intersect.uv.x * width;
+    }
+
     getIntersectY( index ){
         const height = this.config.height || 512;
         const intersect = this.intersects[index];
@@ -241,8 +249,6 @@ class CanvasUI{
                 const elm = self.selectedElements[index];
                 if (elm.overflow == "scroll"){ 
                     self.scrollData[index] = { scrollY: elm.scrollY, rayY: self.getIntersectY(index) };
-                }else if (elm.type == "slider"){
-                    elm.slider.scrollData = { scrollX: elm.scrollX, rayX: self.getIntersectX(index) };
                 }
             }
         }
@@ -449,11 +455,20 @@ class CanvasUI{
         this.raycaster.ray.direction.set( 0, 0, - 1 ).applyMatrix4( this.mat4 );
 
         const intersects = this.raycaster.intersectObject( this.mesh );
+        const elm = this.selectedElements[index];
 
         if (intersects.length>0){
-            this.hover( index, intersects[0].uv );
-            this.intersects[index] = intersects[0];
-            this.scroll( index );
+            if (elm && elm.type === 'slider'){
+                if (this.selectPressed[index]){
+                    this.intersects[index] = intersects[0];
+                    elm.slider.setValueFromPos(this.getIntersectX(index));
+                    this.needsUpdate = true; 
+                }
+            }else{
+                this.hover( index, intersects[0].uv );
+                this.intersects[index] = intersects[0];
+                this.scroll( index );
+            }
         }else{
             this.hover( index );
             this.intersects[index] = undefined;
