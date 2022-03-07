@@ -9,11 +9,12 @@
 </h4>
 
 ## Use CanvasUI
+
+[CanvasUI tutorial on Youtube](https://www.youtube.com/playlist?list=PLFky-gauhF45P5qrGOljUFm3a6HtX5Mfr) 
+
 <details>
 <summary>Get Started</summary>
 <h4></h4>
-
-[CanvasUI tutorial (youtube) ](https://www.youtube.com/playlist?list=PLFky-gauhF45P5qrGOljUFm3a6HtX5Mfr) 
 
 ![Image](./examples/assets/canvasui-simple.png)
 > [ONLINE DEMO](https://niksgames.com/webxr/dev/CanvasUI/simple/)
@@ -35,82 +36,6 @@ scene.add(ui.mesh);
 ```
 
 A CanvasUI mesh is simply a plane that is 1 x 1 units. In a VR world this means it is 1 metre square. It has a *CanvasTexture* applied, by default this is 512 pixels square. An Arial font is applied and the size of the font is 30 pixels. There is 20 pixels of padding. The font color is white and the background color is black and the canvas will have 6 pixel radius rounded corners. 
-</details>
-
-<details>
-<summary>Contributing</summary>
-<h4></h4>
-Found a bug ? Want to contribute ? Do not hesitate to open a ticket !
-
-Please `git clone` or `download zip file` from the repo.
-
-Use [devsrv](https://github.com/eviltik/devsrv) npm module as a webserver is welcome, explanations below. 
-
-In VSCode, you can use [Live Server addon](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) but only for testing generated builds, or, work without `devsrv` string replacement features.
-
-
-## devsrv (nodejs module)...
-
-### ... as a webserver
-
-`devsrv` is a custom *self signed HTTPS* (*required for webxr*) development webserver, which monitor file changes for hot reload and  handle dynamic string replacement in HTML/JS/CSS files. So you can play with different Three.js versions without spending time to replace path/url yourself. We don't use webpack atm.
-
-Prerequies: you need to have [nodejs](https://nodejs.org/) installed on your computer.
-
-After cloning or unzip the repo, install `CanvasUI` dependencies. 
-```
-$ npm install
-```
-It will install `devsrv` npm module in a `node_modules/` directory.
-
-Then you can start the webserver.
-```
-$ npm start
-```
-or
-```
-$ node node_modules/@eviltik/devsrv/bin/devsrv.js
-```
-
-You can find all interesting `devsrv` command line options [here](https://github.com/eviltik/devsrv)
-
-`devsrv` will search for and will use the first private IP Address found on your computer (i.e wifi or network card ip addr). After starting the server, you can use Google Chrome with WebXR addon, or simply your headset browser (i.e Oculus Browser for Oculus Quest, or Firefox Reality)
-
-### ... as a static file builder
-
-In HTML/JS CanvasUI lib and examples files, you can see this:
-
-```
-import * as THREE from 'https://cdn.skypack.dev/three@THREEJSVERSION';
-```
-
-`THREEJSVERSION` is a string dynamically replaced by `devsrv`. The value to replace with is defined in the configuration file `devsrv.config.json`. Thanks to `devsrv` dynamic string replacement feature, you can change the value directly in the URL, by adding "?r=0.135" in the URL, where 0.135 is the release number of threejs CDN side. If you use `devsrv` dynamic string replacement feature, you can NOT copy directly HTML files from /eaxmples directory, you need to generate static files. `devsrv` will take this point too.
-
-To trigger a CanvasUI build :
-```
-$ npm build
-```
-or
-```
-$ node node_modules/@eviltik/devsrv/bin/devsrv.js -b
-```
-
-Build options are defined in `devsrv.config.json`
-```
-"buildOptions": {
-    "src":"./examples",
-    "dst":"./dist/v1.0.0/threejs.119",
-    "replaceRegexp":"THREEJSVERSION",
-    "defaultValue":"0.119",
-    "fileRegexp":"\\.(html|js)$"
-}
-```
-
-Then you can use `devsrv` (or any https webserver, vscode live server) again to serve the generated files :
-```
-$ node node_modules/@eviltik/devsrv/bin/devsrv.js -d ./dist/v1.0.0/threejs.119
-```
-
 </details>
 
 ## Examples
@@ -582,6 +507,112 @@ const content = {
 
 this.ui = new CanvasUI( content, config );
 ```
+</details>
+
+
+## Notes for developers
+<details>
+<summary>Under the wood</summary>
+<h4></h4>
+
+* CanvasUI use [offscreencanvas](https://caniuse.com/offscreencanvas).
+</details>
+
+<details>
+<summary>Browse examples</summary>
+<h4></h4>
+    
+WebXR require an https webserver.
+
+In VSCode, you can use [Live Server addon](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) but only for testing static files of this repo, with a hardcoded threejs version.
+
+If you want to use a specific threejs version (for testing purpose or generate your own CanvasUI build with this version), please continue reading/
+</details>
+
+<details>
+<summary>"devsrv" node module</summary>
+<h4></h4>
+
+`devsrv` is a self signed HTTPS (*required for webxr*) custom development webserver, with on the fly search and replace string, hot reload and have a build process. So you can play with different Three.js versions without spending time to replace path/url yourself.
+
+:warning: Prerequies: you need to have [nodejs](https://nodejs.org/) installed on your computer.
+
+After cloning or unzip the repo, install `CanvasUI` npm module dependencies. 
+```
+$ npm install
+```
+It will install `devsrv` npm module in a `node_modules/` directory.
+
+Then you can start the webserver.
+```
+$ npm start
+```
+which is a shortcut defined in `package.json` of
+```
+$ node node_modules/@eviltik/devsrv/bin/devsrv.js
+```
+You can use more command line options of `devsrv`, like `-o` to open the browser after starting.
+
+`devsrv` will use the first private IP Address found on your computer (i.e wifi or network card ip addr) so you can access to the url on your local network. After starting the server, you can use Google Chrome with WebXR addon on your computer, or simply the browser available in your VR headset. ( chrome based Meta Browser for  Meta Quest - ex Oculus -, or Firefox Reality) More command line options [here](https://github.com/eviltik/devsrv).
+
+</details>
+
+<details>
+<summary>Play with different Three.js version</summary> 
+<h4></h4>
+
+:hotsprings:
+You can change threejs version by using "r" query string. The version is stored server side in a session and `devsrv` will search and replace threejs version in all js/html files. No need to build something for a quick test.
+
+```
+https://192.168.1.36:8443/examples/CanvasUI/keyboard/?r=0.135
+```
+
+Type anything rather than 0.xxx to reset to the default value, or restart devsrv. Example:
+```
+https://192.168.1.36:8443/examples/CanvasUI/keyboard/?r=reset
+```
+</details>
+
+<details>
+<summary>Build workflow</summary>
+<h4></h4>
+
+### ... as a static file builder
+
+In HTML/JS CanvasUI lib and examples files, you can see this:
+
+```
+import * as THREE from 'https://cdn.skypack.dev/three@THREEJSVERSION';
+```
+
+`THREEJSVERSION` is a string dynamically replaced by `devsrv`. The value to replace with is defined in the configuration file `devsrv.config.json`. Thanks to `devsrv` dynamic string replacement feature, you can change the value directly in the URL, by adding "?r=0.135" in the URL, where 0.135 is the release number of threejs CDN side. If you use `devsrv` dynamic string replacement feature, you can NOT copy directly HTML files from /eaxmples directory, you need to generate static files. `devsrv` will take this point too.
+
+To trigger a CanvasUI build :
+```
+$ npm build
+```
+or
+```
+$ node node_modules/@eviltik/devsrv/bin/devsrv.js -b
+```
+
+Build options are defined in `devsrv.config.json`
+```
+"buildOptions": {
+    "src":"./examples",
+    "dst":"./dist/v1.0.0/threejs.135",
+    "replaceRegexp":"THREEJSVERSION",
+    "defaultValue":"0.135",
+    "fileRegexp":"\\.(html|js)$"
+}
+```
+
+Then you can use `devsrv` (or any https webserver, vscode live server) again to serve the generated files :
+```
+$ node node_modules/@eviltik/devsrv/bin/devsrv.js -d ./dist/v1.0.0/threejs.119
+```
+
 </details>
 
 ## Links
