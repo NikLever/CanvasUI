@@ -1,12 +1,32 @@
-import { CanvasUI } from './CanvasUI.js';
+import { CanvasUI } from '../../CanvasUI.js';
+import { WebGLRenderer, Camera } from 'https://cdn.skypack.dev/three@0.119';
 
 class CanvasKeyboard{
-    constructor( width, renderer, lang = "EN" ){
-        const config = this.getConfig( lang );
+    /**
+    * @param options                    Object containing keyboard options.
+    * @param options.width              Panel width, in meters, default 1
+    * @param options.lang               keyboard layout/language, default "EN"
+    * 
+    * @param canvasUIConfig             Object containing CanvasUI config.
+    * @param canvasUIConfig.renderer    instance of THREE.WebGLRenderer (mandatory)
+    * @param canvasUIConfig.camera      instance of THREE.Camera (mandatory)
+    */
+    constructor( options, canvasUIConfig  ){
+        console.assert(typeof options === 'object', `${this.className}: "options" first argument should be an object`);
+        console.assert(typeof canvasUIConfig === 'object', `${this.className}: "canvasUIConfig" second argument should be an object`);
+        console.assert(canvasUIConfig.renderer instanceof WebGLRenderer, `${this.className}: "canvasUIConfig.renderer" should be an instance of THREE.WebGLRenderer`);
+        console.assert(canvasUIConfig.camera instanceof Camera, `${this.className}: "canvasUIConfig.camera" should be an instance of THREE.Camera`);
+
+        const width = options.width || 1;
+        const lang = options.lang || 'EN';
+        
+        const config = this.getConfig( options.lang );
         config.panelSize = { width, height: width * 0.5 };
         config.height = 256;
         config.body = { backgroundColor: "#555" };
-        config.renderer = renderer;
+        config.renderer = canvasUIConfig.renderer;
+        config.camera = canvasUIConfig.camera;
+
         const content = this.getContent( lang );
         this.keyboard = new CanvasUI( content, config );
         this.keyboard.mesh.visible = false;
@@ -230,9 +250,7 @@ class CanvasKeyboard{
     }
     
     update(){
-        if (this.keyboard){
-            this.keyboard.update();
-        }
+        this.keyboard && this.keyboard.update && this.keyboard.update();
     }
 }
 
