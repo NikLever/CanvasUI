@@ -23,7 +23,7 @@ class App{
         light.position.set( 1, 1, 1 ).normalize();
         this.scene.add( light );
 			
-        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true } );
+        this.renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
         this.renderer.setPixelRatio( window.devicePixelRatio );
         this.renderer.setSize( window.innerWidth, window.innerHeight );
         this.renderer.outputEncoding = THREE.sRGBEncoding;
@@ -33,7 +33,7 @@ class App{
         this.initScene();
         this.setupXR();
         
-        window.addEventListener('resize', this.resize.bind(this) );
+        window.addEventListener( 'resize', this.resize.bind( this ) );
     }	
     
     initScene(){
@@ -71,7 +71,7 @@ class App{
     setupXR(){
         this.renderer.xr.enabled = true; 
         new VRButton( this.renderer );
-        this.renderer.setAnimationLoop( this.render.bind(this) );
+        this.renderer.setAnimationLoop( this.render.bind( this ) );
     }
     
     resize(){
