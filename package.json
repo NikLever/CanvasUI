@@ -1,7 +1,7 @@
 {
-  "name": "canvasui",
-  "version": "0.0.0",
-  "description": "A Three.JS WebXR UI. Enabling easy UI creation for immersive-vr sessions.",
+  "name": "@niklever/canvasui",
+  "version": "0.0.1",
+  "description": "A Three.JS WebXR enabled GUI library. Enabling easy UI creation for both computer, mobile and immersive VR or AR sessions.",
   "directories": {
     "example": "examples"
   },
@@ -21,6 +21,9 @@
     "gui"
   ],
   "author": "Nik Lever",
+  "contributors": [
+    "eviltik"
+  ],
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/NikLever/CanvasUI/issues"

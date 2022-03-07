@@ -1,6 +1,8 @@
 <h1 align="center">CanvasUI</h1>
 
-<h4 align="center">A Three.JS WebXR UI. Enabling easy UI creation for immersive-vr sessions</h4>
+<h4>A Three.JS WebXR enabled GUI library. Enabling easy UI creation for both computer, mobile and immersive VR or AR sessions.
+
+</h4>
 
 <h4 align="center">
 
@@ -8,12 +10,9 @@
 
 </h4>
 
-## Use CanvasUI
-
 [CanvasUI tutorial on Youtube](https://www.youtube.com/playlist?list=PLFky-gauhF45P5qrGOljUFm3a6HtX5Mfr) 
 
-<details>
-<summary>Get Started</summary>
+## Get Started
 <h4></h4>
 
 ![Image](./examples/assets/canvasui-simple.png)
@@ -21,10 +20,11 @@
 
 First, make sure to import **CanvasUI**
 ```
+import * as THREE from 'https://cdn.skypack.dev/three@0.135';
 import { CanvasUI } from '../../jsm/CanvasUI.js'
 ```
 
-Your file structure needs both `three.module.js` and `CanvasKeyboard.js` to be accessible. The repo has the file structure like the Three.js library with the Three.js build loaded from CDN, and extra content in the examples folder. The CanvasUI examples are in the examples/CanvasUI. The class files are in examples/jsm. 
+Your file structure needs `three.module.js` to be accessible. The repo has the file structure like the Three.js examples but the Three.js build is loaded from a CDN, with some extra content in the examples folder. The CanvasUI examples are in the examples/CanvasUI. The class files are in examples/jsm. 
 
 To create a simple text panel use :
 ```
