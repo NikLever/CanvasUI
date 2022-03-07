@@ -2,45 +2,45 @@
 import * as THREE from 'https://cdn.skypack.dev/three@0.119';
 import { BoxLineGeometry } from 'https://cdn.skypack.dev/three@0.119/examples/jsm/geometries/BoxLineGeometry.js';
 
-import { CanvasUI } from '../../jsm/CanvasUI.js'
+import { CanvasUI } from '../../jsm/CanvasUI.js';
 import { VRButton } from '../../jsm/VRButton.js';
 
 class App{
-	constructor(){
-		const container = document.createElement( 'div' );
-		document.body.appendChild( container );
+    constructor(){
+        const container = document.createElement( 'div' );
+        document.body.appendChild( container );
                 
-		this.camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 100 );
-		this.camera.position.set( 0, 1.6, 0 );
+        this.camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 100 );
+        this.camera.position.set( 0, 1.6, 0 );
         
-		this.scene = new THREE.Scene();
+        this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color( 0x505050 );
         this.scene.add( this.camera );
 
-		this.scene.add( new THREE.HemisphereLight( 0x606060, 0x404040 ) );
+        this.scene.add( new THREE.HemisphereLight( 0x606060, 0x404040 ) );
 
         const light = new THREE.DirectionalLight( 0xffffff );
         light.position.set( 1, 1, 1 ).normalize();
-		this.scene.add( light );
+        this.scene.add( light );
 			
-		this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true } );
-		this.renderer.setPixelRatio( window.devicePixelRatio );
-		this.renderer.setSize( window.innerWidth, window.innerHeight );
+        this.renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+        this.renderer.setPixelRatio( window.devicePixelRatio );
+        this.renderer.setSize( window.innerWidth, window.innerHeight );
         this.renderer.outputEncoding = THREE.sRGBEncoding;
         
-		container.appendChild( this.renderer.domElement );
+        container.appendChild( this.renderer.domElement );
         
         this.initScene();
         this.setupXR();
         
-        window.addEventListener('resize', this.resize.bind(this) );
-	}	
+        window.addEventListener( 'resize', this.resize.bind( this ) );
+    }	
     
     initScene(){
         this.room = new THREE.LineSegments(
-					new BoxLineGeometry( 6, 6, 6, 10, 10, 10 ),
-					new THREE.LineBasicMaterial( { color: 0x808080 } )
-				);
+            new BoxLineGeometry( 6, 6, 6, 10, 10, 10 ),
+            new THREE.LineBasicMaterial( { color: 0x808080 } )
+        );
         this.room.geometry.translate( 0, 3, 0 );
         this.scene.add( this.room );
         
@@ -49,13 +49,15 @@ class App{
     
     createUI() {
         const config = {
-            image: { type: "img", position: { left: 20, top: 20 }, width: 472 },
-            info: { type: "text", position: { top: 300 } }
-        }
+            image: { type: 'img', position: { left: 20, top: 20 }, width: 472 },
+            info: { type: 'text', position: { top: 300 } }
+        };
+
         const content = {
-            image: "../../assets/promo.jpg",
-            info: "The promo image from the course: Learn to create WebXR, VR and AR, experiences using Three.JS"
-        }
+            image: '../../assets/promo.jpg',
+            info: 'The promo image from the course: Learn to create WebXR, VR and AR, experiences using Three.JS'
+        };
+        
         this.ui = new CanvasUI( content, config );
     
         this.ui.mesh.position.set( 0, 1.5, -1.6 );
@@ -67,7 +69,7 @@ class App{
         
         new VRButton( this.renderer );
         
-        this.renderer.setAnimationLoop( this.render.bind(this) );
+        this.renderer.setAnimationLoop( this.render.bind( this ) );
     }
     
     resize(){
@@ -76,7 +78,7 @@ class App{
         this.renderer.setSize( window.innerWidth, window.innerHeight );  
     }
     
-	render( ) {   
+    render( ) {   
         this.ui.update();
         this.renderer.render( this.scene, this.camera );
     }
