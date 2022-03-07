@@ -1,28 +1,28 @@
 const config = {
     clientRedirects:[
         {
-            urlSrc:"/",
-            redirectTo:"/examples/index.html"
+            urlSrc:'/',
+            redirectTo:'/examples/index.html'
         }
     ],
     textReplacements: [
         {
-            queryVar:"r",
+            queryVar:'r',
             queryVarRegexp:/^0\.[0-9]{3}$/,
             replaceRegexp:/0\.119/g,
-            defaultValue:"0.119",
+            defaultValue:'0.135',
             pathRegexp:/\.(html|jsm?)|(\/)$/
         },{
-            replaceRegexp:/\<!-- DEVSRVMONITOR -->/g,
+            replaceRegexp:/<!-- DEVSRVMONITOR -->/g,
             defaultValue:'<script type="text/javascript" src="../../js/devsrv-monitor.js"></script>',
             pathRegexp:/\.(html|jsm?)|(\/)$/
         }
     ],
     buildOptions:{
-        src:"./examples",
-        dst:"./dist/v1.0.0/threejs.119",
-        replaceRegexp:/THREEJSVERSION/g,
-        defaultValue:"0.119",
+        src:'./examples',
+        dst:'./dist/r135',
+        replaceRegexp:/0.119/g,
+        defaultValue:'0.135',
         fileRegexp:/\.(html|js)$/
     }, 
     monitorOptions:{
@@ -31,6 +31,6 @@ const config = {
         fileRegexp:/\.(html|jsm?)$/,
         excludeRegexp:/node_modules/
     }
-}
+};
 
 module.exports = config;
