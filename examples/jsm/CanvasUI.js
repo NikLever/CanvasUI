@@ -106,7 +106,13 @@ class CanvasUI{
             this.config.body.type = "text";
         }else{
             this.content = content;
-            const btns = Object.values(this.config).filter( (value) => { return value.type === "button" || value.overflow === "scroll" || value.type === "input-text" || value.type === "picker" || value.type === "slider" });
+            const btns = Object.values(this.config).filter( (value) => {
+                return value.overflow === "scroll" || 
+                value.type === "button" || 
+                value.type === "input-text" || 
+                value.type === "picker" || 
+                value.type === "slider" 
+            });
             if (btns.length>0){
                 if ( config === undefined || config.renderer === undefined ){
                     console.warn("CanvasUI: button, scroll or input-text in the config but no renderer")

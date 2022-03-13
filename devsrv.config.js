@@ -20,7 +20,7 @@ const config = {
     ],
     buildOptions:{
         src:"./examples",
-        dst:"./dist/v1.0.0/threejs.119",
+        dst:"./dist/examples",
         replaceRegexp:/THREEJSVERSION/g,
         defaultValue:"0.119",
         fileRegexp:/\.(html|js)$/
