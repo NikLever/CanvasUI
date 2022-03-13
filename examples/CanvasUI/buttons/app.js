@@ -78,11 +78,11 @@ class App{
         const config = {
             panelSize: { width: 2, height: 0.5 },
             height: 128,
-            info: { type: 'text', position:{ left: 6, top: 6 }, width: 500, height: 58, backgroundColor: '#aaa', fontColor: '#000' },
+            info: { type: 'text', position:{ left: 10, top: 10 }, width: 492, height: 50, backgroundColor: '#aaa', fontColor: '#000' },
             prev: { type: 'button', position:{ top: 64, left: 0 }, width: 64, fontColor: '#bb0', hover: '#ff0', onSelect: onPrev },
             stop: { type: 'button', position:{ top: 64, left: 64 }, width: 64, fontColor: '#bb0', hover: '#ff0', onSelect: onStop },
             next: { type: 'button', position:{ top: 64, left: 128 }, width: 64, fontColor: '#bb0', hover: '#ff0', onSelect: onNext },
-            continue: { type: 'button', position:{ top: 70, right: 10 }, width: 200, height: 52, fontColor: '#fff', backgroundColor: '#2659a4', hover: '#3df', onSelect: onContinue },
+            continue: { type: 'button', position:{ top: 70, right: 10 }, width: 200, height: 50, fontColor: '#fff', backgroundColor: '#000099', hover: '#0000ff', onSelect: onContinue },
             renderer: this.renderer,
             camera: this.camera,
             mouseHandler: 'follow'
@@ -98,7 +98,7 @@ class App{
 
         this.ui = new CanvasUI( content, config );
 
-        this.ui.mesh.position.set( 0, 1, -3 );
+        this.ui.mesh.position.set( 0, 1.5, -3 );
         this.scene.add( self.ui.mesh );
     }
     
