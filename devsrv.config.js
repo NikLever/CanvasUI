@@ -9,8 +9,8 @@ const config = {
         {
             queryVar:"r",
             queryVarRegexp:/^0\.[0-9]{3}$/,
-            replaceRegexp:/0\.119/g,
-            defaultValue:"0.119",
+            replaceRegexp:/0\.135/g,
+            defaultValue:"0.135",
             pathRegexp:/\.(html|jsm?)|(\/)$/
         },{
             replaceRegexp:/\<!-- DEVSRVMONITOR -->/g,
@@ -22,7 +22,7 @@ const config = {
         src:"./examples",
         dst:"./dist/examples",
         replaceRegexp:/THREEJSVERSION/g,
-        defaultValue:"0.119",
+        defaultValue:"0.135",
         fileRegexp:/\.(html|js)$/
     }, 
     monitorOptions:{
